@@ -1,7 +1,9 @@
 {% extends 'Home/base.html' %}
 {% load static %}
 {% block body %}
-   
+
+      
+    
          <div class="page-wrapper">
             <div class="content container-fluid">
                <div class="page-header">
@@ -38,7 +40,7 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    {% for student in student_list %}
+                                    {% for student in students %}
                                     <tr>
                                        <td>{{ student.student_id}}</td>
                                        <td>
