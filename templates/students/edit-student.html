@@ -8,7 +8,7 @@
                 <div class="col">
                     <h3 class="page-title">Edit Students</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/students">Students</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'student_list' %}">Students</a></li>
                         <li class="breadcrumb-item active">Edit Students</li>
                     </ul>
                 </div>
@@ -97,7 +97,9 @@
                                     <div class="form-group">
                                         <label>Student Image</label>
                                         <input type="file" name="student_image" class="form-control">
-                                        <small>Current Image: {{ student.student_image.url }}</small>
+                                        {% if student.student_image %}
+                                            <small>Current Image: {{ student.student_image.url }}</small>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="col-12">

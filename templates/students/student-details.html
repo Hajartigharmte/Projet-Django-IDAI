@@ -11,7 +11,7 @@
 <div class="col-sm-12">
 <h3 class="page-title">Student Details</h3>
 <ul class="breadcrumb">
-<li class="breadcrumb-item"><a href="/student">Student</a></li>
+<li class="breadcrumb-item"><a href="{% url 'student_list' %}">Student</a></li>
 <li class="breadcrumb-item active">Student Details</li>
 </ul>
 </div>
@@ -24,7 +24,11 @@
 <div class="about-info">
 <h4>About Me</h4>
 <div class="media mt-3">
-<img src="{{student.student_image ? student.student_image.url : ''}}" class="mr-3" alt="...">
+{% if student.student_image %}
+    <img src="{{ student.student_image.url }}" class="mr-3" alt="...">
+{% else %}
+    <img src="{% static 'images/default-student.png' %}" class="mr-3" alt="...">
+{% endif %}
 <div class="media-body">
 <ul>
 <li>
@@ -41,7 +45,7 @@
 </li>
 <li>
 <span class="title-span">Email : </span>
-<span class="info-span"><a href="{{student.parent.father_email}}" class="__cf_email__" data-cfemail="7216131b010b32151f131b1e5c111d1f">[email&#160;protected]</a></span>
+<span class="info-span"><a href="mailto:{{student.parent.father_email}}" class="__cf_email__" data-cfemail="7216131b010b32151f131b1e5c111d1f">[email&#160;protected]</a></span>
 </li>
 <li>
 <span class="title-span">Gender : </span>
