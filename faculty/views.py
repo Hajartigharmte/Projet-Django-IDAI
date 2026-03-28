@@ -1,7 +1,7 @@
-# faculty/views.py 
-from django.shortcuts import render 
-from django.http import HttpResponse 
+from django.shortcuts import render, redirect 
  
 def index(request): 
-    # return HttpResponse('First test')  ← remplacé par : 
-    return render(request, 'Home/index.html')
+    return render(request, 'authentication/login.html')
+
+def dashboard(request): 
+    return render(request, 'students/student-dashboard.html')

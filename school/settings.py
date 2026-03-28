@@ -124,3 +124,10 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+AUTH_USER_MODEL = 'home_auth.CustomUser' 
+AUTHENTICATION_BACKENDS = ( 
+    'django.contrib.auth.backends.ModelBackend',  # Backend par défaut 
+) 
+LOGIN_URL = '/authentication/login/' 
+LOGIN_REDIRECT_URL = '/dashboard/'
