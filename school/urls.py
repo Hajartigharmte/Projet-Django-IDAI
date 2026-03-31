@@ -9,6 +9,7 @@ urlpatterns = [
     path('authentication/', include('home_auth.urls')), 
  
     path('teachers/', include('teachers.urls')),
+    path('department/', include('department.urls')),
 
 ]
 if settings.DEBUG: 

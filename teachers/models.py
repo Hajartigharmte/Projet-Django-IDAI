@@ -9,5 +9,5 @@ class Teacher(models.Model):
     experience = models.IntegerField()
     address = models.TextField()
 
-    def __cl__str__(self):
+    def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"

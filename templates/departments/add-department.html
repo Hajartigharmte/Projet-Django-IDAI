@@ -1,0 +1,51 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="page-wrapper">
+            <div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h2>Add Department</h2>
+                        <form method="POST">{% csrf_token %}
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <textarea name="description" class="form-control"></textarea>
+                        </div>
+                            <div class="form-group">
+                            <label>Head:</label>
+                            <select name="head" class="form-control">
+                        <option value="">-- Select teacher --</option>
+                            {% for teacher in teachers %}
+                            <option value="{{ teacher.id }}" >{{ teacher.user.first_name }} {{ teacher.user.last_name }}</option>
+                            {% endfor %}
+                            </select>
+                            </div>
+                            <div class="form-group">
+                            <label>Teachers:</label>
+                            <select multiple name="teachers" class="form-control">
+                            {% for teacher in teachers %}
+                            <option value="{{ teacher.id }}">{{ teacher.user.first_name }} {{ teacher.user.last_name }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success mt-2">Save</button>
+                        </form>
+                        </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+          <script src="{%static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+            <script src="{%static 'assets/js/popper.min.js' %}"></script>
+            <script src="{%static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+            <script src="{%static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+            <script src="{%static 'assets/js/script.js' %}"></script>
+           
+{% endblock %}
