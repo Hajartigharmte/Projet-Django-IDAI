@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'student',
     'home_auth',
     'teachers',
+    'subjects',
     'department',
+    
 
 ]
 
