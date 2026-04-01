@@ -38,8 +38,8 @@
                       <option value="" style="color: black !important;">Select Department</option>
                      {% for dept in departments %}
                      <option value="{{ dept.id }}" style="color: black !important;">
-                {{ dept.department_name }}
-                 </option>
+                        {{ dept.name }}
+                    </option>
                       {% empty %}
                      <option value="">Aucun département en base de données</option>
                   {% endfor %}
