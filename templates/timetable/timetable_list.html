@@ -43,7 +43,9 @@
                         <br>
                     {% endfor %}
 
+                    {% if user.is_admin or user.is_teacher %}
                     <a href="{% url 'create_timetable' %}" class="btn btn-primary">Ajouter un créneau</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

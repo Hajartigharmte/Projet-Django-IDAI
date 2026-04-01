@@ -38,7 +38,7 @@
                                 <tbody>
                                     {% for exam in exams %}
                                     <tr>
-                                        <td>{{ exam.subject.nom }}</td> <td>{{ exam.exam_date|date:"d M Y" }} <br><small class="text-muted">{{ exam.exam_date|date:"H:i" }}</small></td>
+                                        <td>{{ exam.subject.subject_name }}</td> <td>{{ exam.exam_date|date:"d M Y" }} <br><small class="text-muted">{{ exam.exam_date|date:"H:i" }}</small></td>
                                         <td><span class="badge badge-soft-info">{{ exam.classroom }}</span></td>
                                         <td>
                                             {% if exam.exam_type == 'CC' %}
