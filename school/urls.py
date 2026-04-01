@@ -13,6 +13,7 @@ urlpatterns = [
     
     path('subjects/', include('subjects.urls')),
     path('core/', include('core.urls')),
+    path('exams/', include('exams.urls')),
 
 ]
 if settings.DEBUG: 

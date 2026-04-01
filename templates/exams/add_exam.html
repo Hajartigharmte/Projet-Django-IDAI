@@ -1,0 +1,24 @@
+{% extends 'Home/base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="card">
+            <div class="card-header"><h5 class="card-title">Ajouter un nouvel examen</h5></div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+ <script src="{%static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+      <script src="{%static 'assets/js/popper.min.js' %}"></script>
+      <script src="{%static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+      <script src="{%static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+      <script src="{%static 'assets/js/script.js' %}"></script>
+{% endblock %}
