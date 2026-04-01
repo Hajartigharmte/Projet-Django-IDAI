@@ -2,11 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Department
 from teachers.models import Teacher
+from django.contrib.auth.decorators import login_required
 def department_list(request):
     departments = Department.objects.all()
     return render(request, 'departments/department-list.html', {'departments': departments})
-
+@login_required
 def add_department(request):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     teachers = Teacher.objects.all()
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -23,8 +26,10 @@ def add_department(request):
         return redirect('department_list')
 
     return render(request, 'departments/add-department.html', {'teachers': teachers})
-
+@login_required
 def edit_department(request, dept_id):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     department = get_object_or_404(Department, id=dept_id)
     teachers = Teacher.objects.all()
 
@@ -42,8 +47,10 @@ def edit_department(request, dept_id):
         return redirect('department_list')
 
     return render(request, 'departments/edit-department.html', {'department': department, 'teachers': teachers})
-
+@login_required
 def delete_department(request, dept_id):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     department = get_object_or_404(Department, id=dept_id)
     department.delete()
     messages.success(request, "Department deleted successfully!")

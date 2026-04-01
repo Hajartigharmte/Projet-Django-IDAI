@@ -56,6 +56,7 @@
       <td>{{ teacher.user.phone }}</td> <td>{{ teacher.address }}</td>
       <td class="text-right">
    <div class="actions">
+      {% if user.is_superuser %}
       <a href="{% url 'edit_teacher' teacher.id %}" class="btn btn-sm bg-success-light mr-2">
          <i class="fas fa-pen"></i>
       </a>
@@ -66,6 +67,7 @@
             <i class="fas fa-trash"></i>
          </button>
       </form>
+      {% endif %}
    </div>
 </td>
    </tr>

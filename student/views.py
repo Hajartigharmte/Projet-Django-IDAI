@@ -4,14 +4,17 @@ from django.http import HttpResponse
 from .models import Student, Parent 
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
  
 def student_list(request): 
-    # afficher les messages
+    
     
     students = Student.objects.all() 
     return render(request, 'students/students.html', {'students': students}) 
- 
+@login_required
 def add_student(request): 
+    if not request.user.is_superuser:
+        return redirect('student_list')
     
     if request.method == 'POST': 
         # Récupérer les données de l'étudiant 

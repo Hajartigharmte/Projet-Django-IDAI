@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Subject
 from teachers.models import Teacher
 from department.models import Department
+from django.contrib.auth.decorators import login_required
 
 #  LISTE DES MATIÈRES
 def subject_list(request):
@@ -9,7 +10,10 @@ def subject_list(request):
     return render(request, 'subjects/subjects.html', {'subjects': subjects})
 
 #  AJOUTER UNE MATIÈRE
+@login_required
 def add_subject(request):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     teachers = Teacher.objects.all() 
     departments = Department.objects.all()
     
@@ -31,7 +35,10 @@ def add_subject(request):
     return render(request, 'subjects/add_subject.html', {'teachers': teachers ,'departments': departments})
 
 #  MODIFIER UNE MATIÈRE
+@login_required
 def edit_subject(request, id):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     subject = get_object_or_404(Subject, id=id)
     teachers = Teacher.objects.all()
     
@@ -43,7 +50,11 @@ def edit_subject(request, id):
         return redirect('subject_list')
         
     return render(request, 'subjects/edit_subject.html', {'subject': subject, 'teachers': teachers})
+
+@login_required
 def delete_subject(request, id):
+    if not request.user.is_superuser:
+        return redirect('home')
     subject = get_object_or_404(Subject, id=id)
     subject.delete()
     return redirect('subject_list')

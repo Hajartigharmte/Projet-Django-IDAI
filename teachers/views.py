@@ -4,14 +4,20 @@ from django.http import HttpResponse
 from django.contrib import messages
 from .models import Teacher
 from home_auth.models import CustomUser  
+from django.contrib.auth.decorators import login_required
 
 #  LISTE DES PROFESSEURS
+
 def teacher_list(request):
+   
     teachers = Teacher.objects.all()
     return render(request, 'teachers/teachers.html', {'teachers': teachers})
 
 #  AJOUTER UN PROFESSEUR  
+@login_required
 def add_teacher(request):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     if request.method == "POST":
         # Récupération des données du formulaire
         first_name = request.POST.get('first_name')
@@ -56,7 +62,10 @@ def view_teacher(request, id):
     return render(request, 'teachers/view_teacher.html', {'teacher': teacher})
 
 # Vue pour modifier un professeur
+@login_required
 def edit_teacher(request, id):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     # 1. On récupère le professeur précis grâce à son ID
     teacher = get_object_or_404(Teacher, id=id)
     
@@ -88,7 +97,10 @@ def edit_teacher(request, id):
     return render(request, 'teachers/edit_teacher.html', {'teacher': teacher})
 
 # Vue pour supprimer un professeur
+@login_required
 def delete_teacher(request, id):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     teacher = get_object_or_404(Teacher, id=id)
     if request.method == "POST":
         user = teacher.user # On récupère l'utilisateur lié
@@ -96,3 +108,8 @@ def delete_teacher(request, id):
         user.delete()       # On supprime le compte utilisateur
         return redirect('teacher_list')
     return redirect('teacher_list')
+
+
+def teacher_dashboard(request):
+   
+    return render(request, 'teachers/teachers.html')

@@ -16,8 +16,10 @@
                         </ul>
                      </div>
                      <div class="col-auto text-right float-right ml-auto">
+                        {% if user.is_superuser %}
                         <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
                         <a href="{% url 'add_student' %}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                        {% endif %}
                      </div>
                   </div>
                </div>
@@ -56,6 +58,7 @@
                                        <td>{{ student.parent.present_address }}</td>
                                        <td class="text-right">
                                           <div class="actions">
+                                             {% if user.is_superuser %}
                                              <a href="{% url 'edit_student' student.student_id %}" class="btn btn-sm bg-success-light mr-2">
                                                  <i class="fas fa-pen"></i>
                                              </a>
@@ -65,6 +68,9 @@
                                                      <i class="fas fa-trash"></i>
                                                  </button>
                                              </form>
+                                             {% else %}
+                                             <span class="badge badge-info">Lecture seule</span>
+                                             {% endif %}
                                          </div>
                                        </td>
                                     </tr>
