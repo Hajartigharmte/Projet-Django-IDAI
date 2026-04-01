@@ -1,0 +1,63 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="page-wrapper">
+            <div class="content container-fluid">
+               <div class="page-header">
+                  <div class="row align-items-center">
+                     <div class="col">
+
+                        <h2>Créer un emploi du temps</h2>
+                            <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>Département:</label>
+                                <select name="department">
+                                    {% for dept in departments %}
+                                        <option value="{{ dept.id }}">{{ dept.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+    <label>Professeur:</label>
+    <select name="teacher">
+        {% for t in teachers %}
+            <option value="{{ t.id }}">{{ t.user.username }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Matière:</label>
+    <select name="subject">
+        {% for s in subjects %}
+            <option value="{{ s.id }}">{{ s.subject_name }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Jour:</label>
+    <select name="day_of_week">
+        <option value="Mon">Lundi</option>
+        <option value="Tue">Mardi</option>
+        <option value="Wed">Mercredi</option>
+        <option value="Thu">Jeudi</option>
+        <option value="Fri">Vendredi</option>
+    </select><br><br>
+
+    <label>Heure début:</label><input type="time" name="start_time"><br><br>
+    <label>Heure fin:</label><input type="time" name="end_time"><br><br>
+
+    <button type="submit">Enregistrer</button>
+</form>
+                        </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+          <script src="{%static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+            <script src="{%static 'assets/js/popper.min.js' %}"></script>
+            <script src="{%static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+            <script src="{%static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+            <script src="{%static 'assets/js/script.js' %}"></script>
+           
+{% endblock %}

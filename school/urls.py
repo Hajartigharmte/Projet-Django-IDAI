@@ -12,6 +12,7 @@ urlpatterns = [
     path('department/', include('department.urls')),
     
     path('subjects/', include('subjects.urls')),
+    path('core/', include('core.urls')),
 
 ]
 if settings.DEBUG: 

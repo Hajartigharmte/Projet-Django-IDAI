@@ -1,0 +1,59 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h2>Emploi du temps par département</h2>
+
+                    {% for dept in departments %}
+                        <h3>{{ dept.name }}</h3>
+                        <table border="1" cellpadding="5" cellspacing="0" style="width:100%; border-collapse: collapse;">
+                            <thead style="background-color:#f2f2f2;">
+                                <tr>
+                                    <th>Jour</th>
+                                    <th>Heure</th>
+                                    <th>Professeur</th>
+                                    <th>Matière</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for t in dept.timetables.all|dictsort:"day_of_week" %}
+
+                                    <tr>
+                                        <td>{{ t.day_of_week }}</td>
+                                        <td>{{ t.start_time }} - {{ t.end_time }}</td>
+                                        <td>{{ t.teacher.user.username }}</td>
+                                        {% if t.subject %}
+                                            <td>{{ t.subject.subject_name }}</td>
+                                        {% else %}
+                                        <td>{{ t.subject_name }}</td>
+                                        {% endif %}
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="4" style="text-align:center;">Pas de créneaux pour ce département</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <br>
+                    {% endfor %}
+
+                    <a href="{% url 'create_timetable' %}" class="btn btn-primary">Ajouter un créneau</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts JS -->
+<script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+{% endblock %}
