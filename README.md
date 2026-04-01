@@ -120,6 +120,9 @@ Accéder à l'application :
 ▶️ **[Lien de la vidéo de démonstration]**
 
 > La vidéo présente : connexion avec les 3 types de comptes, gestion des étudiants/enseignants/départements, emploi du temps, examens et jours fériés.
+> 1er connexion c est pour admin-interface
+> 2eme connexion c est pour student-interface
+> 3eme conexion est pour teacher-interface
 
 ---
 
