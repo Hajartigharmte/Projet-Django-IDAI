@@ -14,7 +14,7 @@
 
 ## ✨ Fonctionnalités
 
-- 👨‍🎓 **Gestion des Étudiants** — CRUD complet (ajout, liste, détail, modification, suppression) avec gestion des parents (OneToOneField)
+- 👨‍🎓 **Gestion des Étudiants** — CRUD complet (ajout, liste, détail, modification, suppression) avec gestion des parents (OneToOneField).
 - 👩‍🏫 **Gestion des Enseignants** — CRUD complet avec profil détaillé
 - 🏢 **Départements** — Création et attribution des enseignants aux départements
 - 📚 **Matières (Subjects)** — Lien avec départements et enseignants
