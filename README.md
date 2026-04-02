@@ -117,7 +117,7 @@ Accéder à l'application :
 
 ## 🎬 Démonstration vidéo
 
-▶️ **[Lien de la vidéo de démonstration]**
+▶️ **[https://youtu.be/PRwMur7XDuE]**
 
 > La vidéo présente : connexion avec les 3 types de comptes, gestion des étudiants/enseignants/départements, emploi du temps, examens et jours fériés.
 > 1er connexion c est pour admin-interface
@@ -175,7 +175,7 @@ Accéder à l'application :
 Projet réalisé en binôme dans le cadre du module **Développement Web Avancé — Back end (Python)** :
 
 - **Hajar Tigharmte**
-- **Issrae Ararou**
+- **Israe Ararou**
 
 Encadrante : **Prof. Sara AHSAIN**
 
