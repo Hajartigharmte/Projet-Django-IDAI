@@ -2,98 +2,116 @@
 {% load static %}
 {% block body %}
 
-      
-   
-         <div class="page-wrapper">
-            <div class="content container-fluid">
-               <div class="page-header">
-                  <div class="row align-items-center">
-                     <div class="col">
-                        <h3 class="page-title">Teachers</h3>
-                        <ul class="breadcrumb">
-                           <li class="breadcrumb-item"><a href="">Dashboard</a></li>
-                           <li class="breadcrumb-item active">Teachers</li>
-                        </ul>
-                     </div>
-                     <div class="col-auto text-right float-right ml-auto">
-                        <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
-                        <a href="{% url 'add_teacher' %}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
-                     </div>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-sm-12">
-                     <div class="card card-table">
-                        <div class="card-body">
-                           <div class="table-responsive">
-                              <table class="table table-hover table-center mb-0 datatable">
-                                 <thead>
-                                    <tr>
-                                       <th>ID</th>
-                                       <th>Name</th>
-                                       <th>Qualification</th>
-                                       <th>DOB</th>
-                                       <th>Experience</th>
-                                       <th>Mobile Number</th>
-                                       <th>Address</th>
-                                       <th class="text-right">Action</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-   {% for teacher in teachers %}
-   <tr>
-      <td>{{ teacher.id }}</td>
-      <td>
-         <h2 class="table-avatar">
-            <a href="{% url 'view_teacher' teacher.id %}">
-               {{ teacher.user.first_name }} {{ teacher.user.last_name }}
-            </a>
-         </h2>
-      </td>
-      <td>{{ teacher.qualification }}</td>
-      <td>{{ teacher.date_of_birth|date:"d M Y" }}</td>
-      <td>{{ teacher.experience }} ans</td>
-      <td>{{ teacher.user.phone }}</td> <td>{{ teacher.address }}</td>
-      <td class="text-right">
-   <div class="actions">
-      {% if user.is_superuser %}
-      <a href="{% url 'edit_teacher' teacher.id %}" class="btn btn-sm bg-success-light mr-2">
-         <i class="fas fa-pen"></i>
-      </a>
-
-      <form action="{% url 'delete_teacher' teacher.id %}" method="POST" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce professeur ?');">
-         {% csrf_token %}
-         <button type="submit" class="btn btn-sm bg-danger-light">
-            <i class="fas fa-trash"></i>
-         </button>
-      </form>
-      {% endif %}
-   </div>
-</td>
-   </tr>
-   {% endfor %}
-</tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Teachers</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Teachers</li>
+                    </ul>
+                </div>
+                {% if user.is_superuser %}
+                <div class="col-auto text-right float-right ml-auto">
+                    <a href="{% url 'add_teacher' %}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                </div>
+                {% endif %}
             </div>
-            <footer>
-               <p>Copyright © 2020 Dreamguys.</p>
-            </footer>
-         </div>
-      </div>
-      <script src="{%static 'assets/js/jquery-3.6.0.min.js' %}"></script>
-      <script src="{%static 'assets/js/popper.min.js' %}"></script>
-      <script src="{%static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-      <script src="{%static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
-      <script src="{%static 'assets/plugins/datatables/datatables.min.js' %}"></script>
-      <script src="{%static 'assets/js/script.js' %}"></script>
-   </body>
-   <!-- Mirrored from preschool.dreamguystech.com/html-template/students.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 28 Oct 2021 11:11:49 GMT -->
-</html>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-center mb-0 datatable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Qualification</th>
+                                        <th class="text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for teacher in teachers %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                <a href="{% url 'teacher_view_details' teacher.id %}">
+                                                    {{ teacher.admin.first_name }} {{ teacher.admin.last_name }}
+                                                </a>
+                                            </h2>
+                                        </td>
+                                        <td>{{ teacher.admin.email }}</td>
+                                        <td>{{ teacher.qualification }}</td>
+                                        
+                                        <td class="text-right">
+                                             <div class="actions">
+                                                <a href="{% url 'teacher_view_details' teacher.id %}" class="btn btn-sm bg-success-light mr-2">
+                                                   <i class="fas fa-eye"></i>
+                                                </a>
 
+                                                {% if user.is_superuser %}
+                                                   <a href="{% url 'edit_teacher_form' teacher.id %}" class="btn btn-sm bg-primary-light mr-2">
+                                                      <i class="fas fa-pen"></i>
+                                                   </a>
+
+                                                   <a href="#" class="btn btn-sm bg-danger-light" data-toggle="modal" data-target="#delete_teacher_{{ teacher.id }}">
+                                                      <i class="fas fa-trash"></i>
+                                                   </a>
+                                                {% endif %}
+                                             </div>
+                                          </td>
+                                                                              </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if user.is_superuser %}
+    {% for teacher in teachers %}
+    <div class="modal fade" id="delete_teacher_{{ teacher.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="form-content p-2">
+                        <h4 class="modal-title">Delete Teacher</h4>
+                        <p class="mb-4">Are you sure you want to delete <strong>{{ teacher.admin.first_name }} {{ teacher.admin.last_name }}</strong>?</p>
+                        <form action="{% url 'delete_teacher' teacher.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+<script src="{% static 'assets/plugins/datatables/datatables.min.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
 
 {% endblock %}

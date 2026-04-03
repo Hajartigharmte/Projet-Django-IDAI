@@ -1,28 +1,71 @@
 {% extends 'Home/base.html' %}
+{% load static %}
+
 {% block body %}
 <div class="page-wrapper">
     <div class="content container-fluid">
-        <div class="page-header">
-            <h3 class="page-title">Teacher Details</h3>
-        </div>
-        <div class="card">
+        <div class="card mb-4">
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="about-info">
-                            <h4>{{ teacher.user.first_name }} {{ teacher.user.last_name }}</h4>
-                            <p><strong>Email:</strong> {{ teacher.user.email }}</p>
-                            <p><strong>Qualification:</strong> {{ teacher.qualification }}</p>
-                            <p><strong>Experience:</strong> {{ teacher.experience }} ans</p>
-                            <p><strong>Gender:</strong> {{ teacher.gender }}</p>
-                            <p><strong>Address:</strong> {{ teacher.address }}</p>
+                <form method="GET" action="{% url 'teacher_view' %}">
+                    <div class="input-group">
+                        <input type="text" name="search_name" class="form-control" placeholder="Entrez le nom pour afficher le profil..." value="{{ query|default:'' }}">
+                        <button class="btn btn-primary" type="submit">Rechercher</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if teacher %}
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center">
+                            <div style="border: 4px solid #f8f9fa; padding: 5px; display: inline-block; border-radius: 10px; background: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                {% if teacher.photo %}
+                                    <img src="{{ teacher.photo.url }}" alt="Photo" style="width: 200px; height: 200px; object-fit: cover; border-radius: 5px;">
+                                {% else %}
+                                    <img src="{% static 'assets/img/user.jpg' %}" alt="Avatar" style="width: 200px; height: 200px; object-fit: cover; border-radius: 5px;">
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="profile-info-header">
+                                <h2 class="text-uppercase" style="color: #1E1E1E; font-weight: 700; letter-spacing: 1px;">
+                                    {{ teacher.first_name }} {{ teacher.last_name }}
+                                </h2>
+                                <hr style="width: 50px; border: 2px solid #ffa500; margin-left: 0;">
+                                
+                                <div class="mt-4">
+                                    <p style="font-size: 1.1em;"><i class="fas fa-map-marker-alt text-danger mr-2"></i> <strong>Ville :</strong> {{ teacher.city|default:"Non spécifiée" }}</p>
+                                    <p style="font-size: 1.1em;"><i class="fas fa-star text-warning mr-2"></i> <strong>Qualification :</strong> {{ teacher.qualification }}</p>
+                                    <p style="font-size: 1.1em;"><i class="fas fa-graduation-cap text-info mr-2"></i> <strong>Diplôme :</strong> {{ teacher.diploma|default:"Master / Doctorat" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <h4 class="mb-3" style="border-bottom: 2px solid #eee; padding-bottom: 10px;">Parcours Professionnel</h4>
+                            <div class="p-4" style="background-color: #fcfcfc; border-left: 5px solid #1E1E1E; border-radius: 5px;">
+                                {% if teacher.parcours %}
+                                    {{ teacher.parcours|linebreaks }}
+                                {% else %}
+                                    <p class="text-muted">Détails du parcours non disponibles.</p>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% elif query %}
+            <div class="alert alert-warning">Aucun professeur trouvé pour "{{ query }}".</div>
+        {% endif %}
     </div>
 </div>
+
+
 <script src="{%static 'assets/js/jquery-3.6.0.min.js' %}"></script>
       <script src="{%static 'assets/js/popper.min.js' %}"></script>
       <script src="{%static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>

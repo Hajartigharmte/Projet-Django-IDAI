@@ -113,11 +113,11 @@
                        <ul>
                      <li><a href="{% url 'teacher_list' %}">Teacher List</a></li>
    
-                    <li><a href="{% url 'teacher_list' %}">Teacher View</a></li>
+                    <li><a href="{% url 'teacher_view' %}">Teacher View</a></li>
                     {% if user.is_superuser %}
                    <li><a href="{% url 'add_teacher' %}">Teacher Add</a></li>
                     
-                   <li><a href="{% url 'teacher_list' %}">Teacher Edit</a></li>
+                   <li><a href="{% url 'edit_teacher' %}">Teacher Edit</a></li>
                    {% endif %}
                      </ul>
 
@@ -258,12 +258,16 @@
          </div>
 
 
-         {% block body %}
-            
-         {% endblock %}
-
-      </div>
       
+
+         
+
+               {% block body %}
+               {% endblock %}
+            </div>
+        
+         
+         
 
  
 
