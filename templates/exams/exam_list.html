@@ -26,57 +26,62 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover table-center mb-0 datatable">
-                                <thead>
-                                    <tr>
-                                        <th>Matière</th>
-                                        <th>Date & Heure</th>
-                                        <th>Salle</th>
-                                        <th>Type</th>
-                                        <th class="text-end">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for exam in exams %}
-                                    <tr>
-                                        <td>{{ exam.subject.subject_name }}</td> <td>{{ exam.exam_date|date:"d M Y" }} <br><small class="text-muted">{{ exam.exam_date|date:"H:i" }}</small></td>
-                                        <td><span class="badge badge-soft-info">{{ exam.classroom }}</span></td>
-                                        <td>
-                                            {% if exam.exam_type == 'CC' %}
-                                                <span class="badge badge-primary">Contrôle Continu</span>
-                                            {% else %}
-                                                <span class="badge badge-danger">Examen Final</span>
-                                            {% endif %}
-                                        </td>
-                                             <td class="text-end">
-                                            <div class="actions">
-                                                    {# 1. VUE POUR LE PROFESSEUR  #}
-                                                    {% if not user.is_student %}
-                                                        <a href="{% url 'enter_results' exam.id %}" class="btn btn-sm bg-info-light me-2">
-                                                            <i class="fas fa-list"></i> Saisir Résultats
-                                                        </a>
-                                                    {% endif %}
+    <thead>
+        <tr>
+            <th>Matière</th>
+            <th>Type</th>
+            {# L'admin voit tout, le prof ne voit pas les détails logistiques #}
+            {% if user.is_superuser %}
+                <th>Date & Heure</th>
+                <th>Salle</th>
+            {% endif %}
+            
+            <th class="text-end">{% if user.is_student %}Ma Note{% else %}Actions{% endif %}</th>
+        </tr>
+                </thead>
+                <tbody>
+                    {% for exam in exams %}
+                    <tr>
+                        <td>{{ exam.subject.subject_name }}</td>
+                        <td>
+                            {% if exam.exam_type == 'CC' %}
+                                <span class="badge badge-primary">CC</span>
+                            {% else %}
+                                <span class="badge badge-danger">EF</span>
+                            {% endif %}
+                        </td>
 
-                                                    {# 2. VUE POUR L'ÉTUDIANT  #}
-                                                    {% if user.is_student %}
-                                                        {% for grade in exam.grade_set.all %}
-                                                            {% if grade.student == request.user %}
-                                                                <span class="badge badge-success" style="font-size: 14px;">
-                                                                    <i class="fas fa-check-circle"></i> {{ grade.score }} / 20
-                                                                </span>
-                                                            {% endif %}
-                                                        {% endfor %}
+                        
+                        {% if user.is_superuser %}
+                            <td>{{ exam.exam_date|date:"d M Y" }}</td>
+                            <td><span class="badge badge-soft-info">{{ exam.classroom }}</span></td>
+                        {% endif %}
 
+                        <td class="text-end">
+                            <div class="actions">
+                               
+                                {% if not user.is_student %}
+                                    <a href="{% url 'enter_results' exam.id %}" class="btn btn-sm bg-info-light me-2">
+                                        <i class="fas fa-edit"></i> Saisir Notes
+                                    </a>
+                                {% endif %}
+
+                                            
+                                                {% if user.is_student %}
+                                                    {% for grade in exam.grades.all %}
+                                                        {% if grade.student == request.user %}
+                                                            <span class="badge badge-success" style="font-size: 14px;">
+                                                                {{ grade.score }} / 20
+                                                            </span>
                                                         
-                                                        {% if not exam.grade_set.all %}
-                                                            <span class="badge badge-soft-secondary">Note en attente</span>
-                                                        {% endif %}
-                                                    {% endif %}
-                                                </div>
+                                                         {% endif %}
+                                                         {% empty %}
+                                                            <span class="badge badge-soft-secondary">Pas encore de note</span>
+                                                        {% endfor %}
+                                                    
+                                                {% endif %}
+                                            </div>
                                         </td>
-                                    </tr>
-                                    {% empty %}
-                                    <tr>
-                                        <td colspan="5" class="text-center">Aucun examen trouvé.</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

@@ -23,14 +23,14 @@ def add_exam(request):
 
 User = get_user_model()
 @login_required
+
 def enter_results(request, exam_id):
-    # ON AUTORISE : L'Admin OU les membres du groupe 'Teachers'
     is_teacher = request.user.groups.filter(name='Teachers').exists()
     
     if request.user.is_superuser or is_teacher:
         exam = get_object_or_404(Exam, id=exam_id)
-        students = User.objects.filter(is_student=True)
         
+        students = User.objects.filter(is_student=True)
         if request.method == 'POST':
             for student in students:
                 score = request.POST.get(f'score_{student.id}')
@@ -46,7 +46,4 @@ def enter_results(request, exam_id):
             'exam': exam,
             'students': students
         })
-    else:
-        # Si c'est un étudiant, on le renvoie vers le dashboard
-        return redirect('dashboard')
-    
+    return redirect('dashboard')
