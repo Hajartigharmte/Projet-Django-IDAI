@@ -2,45 +2,58 @@
 {% load static %}
 {% block body %}
 <div class="page-wrapper">
-            <div class="content container-fluid">
-               <div class="page-header">
-                  <div class="row align-items-center">
-                     <div class="col">
-                      <h2>Departments</h2>
-                      <a href="{% url 'add_department' %}" class="btn btn-primary">Add Department</a>
-                          <table class="table table-bordered mt-3">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h2>Departments</h2>
+                    {% if request.user.is_superuser %}
+                    <a href="{% url 'add_department' %}" class="btn btn-primary">Add Department</a>
+                    {% endif %}
+                    
+                    <table class="table table-bordered mt-3">
+                        <thead>
                             <tr>
-                              <th>Name</th>
-                              <th>Head</th>
-                              <th>Teachers</th>
-                              <th>Actions</th>
+                                <th>Name</th>
+                                <th>Head</th>
+                                <th>Teachers</th>
+                                {% if request.user.is_superuser %}
+                                <th>Actions</th>
+                                {% endif %}
                             </tr>
-                              {% for dept in departments %}
-                              <tr>
-                                  <td>{{ dept.name }}</td>
-                                  <td>{{ dept.head }}</td>
+                        </thead>
+                        <tbody>
+                            {% for dept in departments %}
+                            <tr>
+                                <td>{{ dept.name }}</td>
+                                <td>{{ dept.head }}</td>
                                 <td>
-                                  {% for t in dept.teachers.all %}
-                                    {{ t.user.first_name }} {{ t.user.last_name }}{% if not forloop.last %}, {% endif %}
-                                  {% endfor %}
-                              </td>
-                              <td>
-                                <a href="{% url 'edit_department' dept.id %}" class="btn btn-sm btn-warning">Edit</a>
-                                <a href="{% url 'delete_department' dept.id %}" class="btn btn-sm btn-danger">Delete</a>
-                              </td>
+                                    {% for t in dept.teachers.all %}
+                                        {{ t.first_name }} {{ t.last_name }}{% if not forloop.last %}, {% endif %}
+                                    {% empty %}
+                                        <span class="text-muted">No teachers</span>
+                                    {% endfor %}
+                                </td>
+                                {% if request.user.is_superuser %}
+                                <td>
+                                    <a href="{% url 'edit_department' dept.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="{% url 'delete_department' dept.id %}" class="btn btn-sm btn-danger">Delete</a>
+                                </td>
+                                {% endif %}
                             </tr>
                             {% endfor %}
-                          </table>
-                      </div>
-                  </div>
-               </div>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-         </div>
-         <script src="{%static 'assets/js/jquery-3.6.0.min.js' %}"></script>
-      <script src="{%static 'assets/js/popper.min.js' %}"></script>
-      <script src="{%static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-      <script src="{%static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
-      <script src="{%static 'assets/plugins/datatables/datatables.min.js' %}"></script>
-      <script src="{%static 'assets/js/script.js' %}"></script>
-         
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+<script src="{% static 'assets/plugins/datatables/datatables.min.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
 {% endblock %}
