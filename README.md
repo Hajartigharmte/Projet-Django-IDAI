@@ -117,7 +117,7 @@ Accéder à l'application :
 
 ## 🎬 Démonstration vidéo
 
-▶️ **[https://youtu.be/dAhqwy86fpk]**
+▶️ **[https://youtu.be/YAeZNbj8dg0]**
 
 > La vidéo présente : connexion avec les 3 types de comptes, gestion des étudiants/enseignants/départements, emploi du temps, examens et jours fériés.
 > 1er connexion c est pour admin-interface
