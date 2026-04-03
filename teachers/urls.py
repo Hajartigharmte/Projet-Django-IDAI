@@ -14,4 +14,5 @@ urlpatterns = [
     # ROUTES POUR L'ÉDITION
     path('edit/', views.edit_teacher, name='edit_teacher'), # Pour le menu
     path('edit/<int:id>/', views.edit_teacher, name='edit_teacher_form'), # Pour un ID précis
+    path('dashboard/', views.teacher_dashboard, name='teacher_dashboard'),
 ]

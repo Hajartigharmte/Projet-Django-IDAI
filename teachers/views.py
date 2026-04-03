@@ -131,5 +131,11 @@ def delete_teacher(request, id):
         
     return redirect('teacher_list')
 def teacher_dashboard(request):
-   
-    return render(request, 'teachers/teachers.html')
+    
+    context = {
+        'total_courses': 5,
+        'total_students': 120,
+        'upcoming_exams': 3,
+        'total_hours': 48,
+    }
+    return render(request, 'teachers/teacher_dashboard.html', context)
