@@ -22,7 +22,8 @@
 <div class="row">
 <div class="col-md-12">
 <div class="about-info">
-<h4>About Me</h4>
+<h4>{{ student.first_name }} {{ student.last_name }}</h4>
+
 <div class="media mt-3">
 {% if student.student_image %}
     <img src="{{ student.student_image.url }}" class="mr-3" alt="...">
